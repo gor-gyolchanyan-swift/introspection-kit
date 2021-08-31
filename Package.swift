@@ -13,6 +13,12 @@ let package = Package(
     targets: [
         .target(
             name: "IntrospectionKit"
+        ),
+        .testTarget(
+            name: "IntrospectionKit-Test",
+            dependencies: [
+                "IntrospectionKit"
+            ]
         )
     ]
 )
