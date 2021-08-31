@@ -1,0 +1,12 @@
+# macOS
+
+**/.DS_Store
+
+# Swift
+
+/.build/
+
+# Xcode
+
+/DerivedData/
+**/xcuserdata/
