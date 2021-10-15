@@ -3,17 +3,12 @@
 // Licensing information is in the `LICENSE` file in the root directory of the repository this file is in.
 //
 
-public struct PropertySchematic {
+public struct PropertyIntrospection: Equatable, Identifiable {
 
-    // MARK: - PropertySchematic
+    // MARK: PropertyIntrospection
 
-    public init?(
-        in aggregateType: Any.Type,
-        at propertyIndex: Int
-    ) {
-        guard propertyIndex >= 0 else {
-            return nil
-        }
+    public init(id: ID) {
+        self.id = id
         var rawConfiguration: _RawConfiguration = (
             _rawName: nil,
             _rawNameRelease: nil,
@@ -21,39 +16,43 @@ public struct PropertySchematic {
             _isMutable: false
         )
         let maybeType = Self._rawType(
-            _in: aggregateType,
-            _at: propertyIndex,
+            _in: id.type.rawValue,
+            _at: id.index,
             _configuration: &rawConfiguration
         )
         guard let type = maybeType else {
-            return nil
+            preconditionFailure("execution has reached a routine that is not supposed to be reachable")
         }
-        self.type = type
+        self.type = TypeIntrospection(rawValue: type)
         let maybeName = rawConfiguration._rawName.map(String.init(cString:))
         guard let name = maybeName else {
-            return nil
+            preconditionFailure("execution has reached a routine that is not supposed to be reachable")
         }
         self.name = name
         rawConfiguration._rawNameRelease?(rawConfiguration._rawName)
-        self.offset = Self._rawOffset(_in: aggregateType, _at: propertyIndex)
+        self.offset = Self._rawOffset(_in: id.type.rawValue, _at: id.index)
         self.isStrong = rawConfiguration._isStrong
         self.isMutable = rawConfiguration._isMutable
     }
 
     public let name: String
 
-    public let type: Any.Type
+    public let type: TypeIntrospection
 
     public let offset: Int
 
     public let isStrong: Bool
 
     public let isMutable: Bool
+
+    // MARK: Identifiable
+
+    public let id: ID
 }
 
-extension PropertySchematic {
+extension PropertyIntrospection {
 
-    // MARK: - PropertySchematic - Raw
+    // MARK: PropertyIntrospection - Raw
 
     private typealias _RawName = UnsafePointer<CChar>
 
@@ -62,8 +61,8 @@ extension PropertySchematic {
     private typealias _RawConfiguration = (_rawName: _RawName?, _rawNameRelease: _RawNameRelease?, _isStrong: Bool, _isMutable: Bool)
 
     @_silgen_name("swift_reflectionMirror_recursiveChildMetadata")
-    private static func _rawType(_in aggregateType: Any.Type, _at propertyIndex: Int, _configuration: UnsafeMutablePointer<_RawConfiguration>) -> Any.Type?
+    private static func _rawType(_in enclosingType: Any.Type, _at index: Int, _configuration: UnsafeMutablePointer<_RawConfiguration>) -> Any.Type?
 
     @_silgen_name("swift_reflectionMirror_recursiveChildOffset")
-    private static func _rawOffset(_in aggregateType: Any.Type, _at propertyIndex: Int) -> Int
+    private static func _rawOffset(_in enclosingType: Any.Type, _at index: Int) -> Int
 }

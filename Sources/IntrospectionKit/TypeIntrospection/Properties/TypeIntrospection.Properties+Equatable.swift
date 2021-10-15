@@ -3,9 +3,12 @@
 // Licensing information is in the `LICENSE` file in the root directory of the repository this file is in.
 //
 
-extension PropertySelectionSchematic: Sequence {
+extension TypeIntrospection.Properties: Equatable {
 
-    // MARK: - Sequence - Element
-
-    public typealias Element = PropertySchematic
+    // MARK: Equatable
+    
+    public static func == (_ some: Self, _ other: Self) -> Bool {
+        return some.lazy.map(\.id) == other.lazy.map(\.id)
+    }
 }
+

@@ -3,11 +3,11 @@
 // Licensing information is in the `LICENSE` file in the root directory of the repository this file is in.
 //
 
-extension PropertySelectionSchematic: BidirectionalCollection {
+extension TypeIntrospection: Hashable {
 
-    // MARK: - BidirectionalCollection - Index
+    // MARK: Hashable
 
-    public func index(before anotherIndex: Index) -> Index {
-        return anotherIndex - 1
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(rawValue))
     }
 }

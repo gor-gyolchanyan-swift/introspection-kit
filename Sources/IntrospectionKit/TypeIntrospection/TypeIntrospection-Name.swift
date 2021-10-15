@@ -3,13 +3,13 @@
 // Licensing information is in the `LICENSE` file in the root directory of the repository this file is in.
 //
 
-extension TypeSchematic {
+extension TypeIntrospection {
 
-    // MARK: - TypeSchematic - Name
+    // MARK: TypeIntrospection - Name
 
     public enum NameVariant {
 
-        // MARK: - TypeSchematic.NameVariant
+        // MARK: TypeIntrospection.NameVariant
 
         case concise
 
@@ -22,19 +22,19 @@ extension TypeSchematic {
         let rawName: _RawName
         switch variant {
             case .concise:
-                rawName = Self._rawName(_of: type, _isExtended: false)
+                rawName = Self._rawName(_of: rawValue, _isExtended: false)
             case .extensive:
-                rawName = Self._rawName(_of: type, _isExtended: true)
+                rawName = Self._rawName(_of: rawValue, _isExtended: true)
             case .inherent:
-                rawName = Self._rawInherentName(_of: type)
+                rawName = Self._rawInherentName(_of: rawValue)
         }
         return Self._name(_rawName: rawName)
     }
 }
 
-extension TypeSchematic {
+extension TypeIntrospection {
 
-    // MARK: - TypeSchematic - Raw
+    // MARK: TypeIntrospection - Raw
 
     private typealias _RawName = (start: UnsafePointer<UInt8>, count: Int)
 

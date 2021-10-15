@@ -11,6 +11,6 @@ internal struct Example {
 
     internal var first: NSString?
     internal weak var second: NSMutableString?
-    internal unowned(safe) let third: NSAttributedString?
-    internal unowned(unsafe) let fourth: NSMutableAttributedString?
+    internal unowned(safe) let third: NSAttributedString
+    internal unowned(unsafe) let fourth: NSMutableAttributedString
 }

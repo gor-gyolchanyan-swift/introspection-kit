@@ -3,9 +3,11 @@
 // Licensing information is in the `LICENSE` file in the root directory of the repository this file is in.
 //
 
-extension PropertySelectionSchematic: RandomAccessCollection {
+extension TypeIntrospection {
 
-    // MARK: - RandomAccessCollection
+    // MARK: TypeIntrospection - Properties
 
-    // This scope is intentionally left blank.
+    public var properties: Properties {
+        Properties(in: self)
+    }
 }

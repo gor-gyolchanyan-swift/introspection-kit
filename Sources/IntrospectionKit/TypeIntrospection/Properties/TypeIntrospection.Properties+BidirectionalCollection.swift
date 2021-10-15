@@ -3,11 +3,11 @@
 // Licensing information is in the `LICENSE` file in the root directory of the repository this file is in.
 //
 
-extension TypeSchematic {
+extension TypeIntrospection.Properties: BidirectionalCollection {
 
-    // MARK: - TypeSchematic - PropertySelectionSchematic
+    // MARK: BidirectionalCollection - Index
 
-    public var propertySelection: PropertySelectionSchematic {
-        PropertySelectionSchematic(in: type)
+    public func index(before anotherIndex: Index) -> Index {
+        return anotherIndex - 1
     }
 }

@@ -3,15 +3,15 @@
 // Licensing information is in the `LICENSE` file in the root directory of the repository this file is in.
 //
 
-extension PropertySelectionSchematic: Collection {
+extension TypeIntrospection.Properties: Collection {
 
-    // MARK: - Collection
+    // MARK: Collection
 
     public var count: Int {
-        Self._rawPropertyCount(_in: aggregateType)
+        Self._rawPropertyCount(_in: type.rawValue)
     }
 
-    // MARK: - Collection - Index
+    // MARK: Collection - Index
 
     public typealias Index = Int
 
@@ -39,20 +39,20 @@ extension PropertySelectionSchematic: Collection {
         return resultingIndex
     }
 
-    // MARK: - Collection - Element
+    // MARK: Collection - Element
 
     public subscript(_ index: Index) -> Element {
-        guard let element = Element(in: aggregateType, at: index) else {
+        guard let propertyID = PropertyIntrospection.ID(in: type, at: index) else {
             preconditionFailure("property index is out of range")
         }
-        return element
+        return PropertyIntrospection(id: propertyID)
     }
 }
 
-extension PropertySelectionSchematic {
+extension TypeIntrospection.Properties {
 
-    // MARK: - PropertySelectionSchematic - Raw
+    // MARK: TypeIntrospection.Properties - Raw
 
     @_silgen_name("swift_reflectionMirror_recursiveCount")
-    private static func _rawPropertyCount(_in aggregateType: Any.Type) -> Int
+    private static func _rawPropertyCount(_in type: Any.Type) -> Int
 }

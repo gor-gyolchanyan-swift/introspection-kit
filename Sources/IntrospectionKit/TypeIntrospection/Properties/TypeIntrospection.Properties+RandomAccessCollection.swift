@@ -3,13 +3,9 @@
 // Licensing information is in the `LICENSE` file in the root directory of the repository this file is in.
 //
 
-public struct PropertySelectionSchematic {
+extension TypeIntrospection.Properties: RandomAccessCollection {
 
-    // MARK: - PropertySelectionSchematic
+    // MARK: RandomAccessCollection
 
-    internal init(in aggregateType: Any.Type) {
-        self.aggregateType = aggregateType
-    }
-
-    internal let aggregateType: Any.Type
+    // This scope is intentionally left blank.
 }

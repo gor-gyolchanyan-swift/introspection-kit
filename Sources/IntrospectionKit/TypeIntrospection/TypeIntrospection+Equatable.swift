@@ -3,13 +3,11 @@
 // Licensing information is in the `LICENSE` file in the root directory of the repository this file is in.
 //
 
-public struct TypeSchematic {
+extension TypeIntrospection: Equatable {
 
-    // MARK: - TypeSchematic
+    // MARK: Equatable
 
-    public init(_ type: Any.Type) {
-        self.type = type
+    public static func == (_ some: Self, _ other: Self) -> Bool {
+        ObjectIdentifier(some.rawValue) == ObjectIdentifier(other.rawValue)
     }
-
-    public let type: Any.Type
 }
