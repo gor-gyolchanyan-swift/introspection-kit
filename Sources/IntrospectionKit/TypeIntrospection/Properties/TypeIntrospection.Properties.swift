@@ -11,10 +11,10 @@ extension TypeIntrospection {
 
         // MARK: TypeIntrospection.Properties
 
-        internal init(in type: TypeIntrospection) {
-            self.type = type
+        internal init(in instanceType: TypeIntrospection) {
+            self.instanceType = instanceType
         }
 
-        internal let type: TypeIntrospection
+        internal let instanceType: TypeIntrospection
     }
 }

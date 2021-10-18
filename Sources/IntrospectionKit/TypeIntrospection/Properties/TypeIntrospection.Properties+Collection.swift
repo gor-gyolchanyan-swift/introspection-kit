@@ -8,7 +8,7 @@ extension TypeIntrospection.Properties: Collection {
     // MARK: Collection
 
     public var count: Int {
-        Self._rawPropertyCount(_in: type.rawValue)
+        Self._rawPropertyCount(_in: instanceType.rawValue)
     }
 
     // MARK: Collection - Index
@@ -42,7 +42,7 @@ extension TypeIntrospection.Properties: Collection {
     // MARK: Collection - Element
 
     public subscript(_ index: Index) -> Element {
-        guard let propertyID = PropertyIntrospection.ID(in: type, at: index) else {
+        guard let propertyID = PropertyIntrospection.ID(in: instanceType, at: index) else {
             preconditionFailure("property index is out of range")
         }
         return PropertyIntrospection(id: propertyID)

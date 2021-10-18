@@ -12,17 +12,17 @@ extension PropertyIntrospection {
         // MARK: PropertyIntrospection.ID
 
         public init?(
-            in type: TypeIntrospection,
+            in instanceType: TypeIntrospection,
             at index: Int
         ) {
-            guard type.properties.indices.contains(index) else {
+            guard instanceType.properties.indices.contains(index) else {
                 return nil
             }
-            self.type = type
+            self.instanceType = instanceType
             self.index = index
         }
 
-        public let type: TypeIntrospection
+        public let instanceType: TypeIntrospection
 
         public let index: Int
     }

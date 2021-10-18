@@ -16,28 +16,28 @@ public struct PropertyIntrospection: Equatable, Identifiable {
             _isMutable: false
         )
         let maybeType = Self._rawType(
-            _in: id.type.rawValue,
+            _in: id.instanceType.rawValue,
             _at: id.index,
             _configuration: &rawConfiguration
         )
         guard let type = maybeType else {
             preconditionFailure("execution has reached a routine that is not supposed to be reachable")
         }
-        self.type = TypeIntrospection(rawValue: type)
+        self.valueType = TypeIntrospection(rawValue: type)
         let maybeName = rawConfiguration._rawName.map(String.init(cString:))
         guard let name = maybeName else {
             preconditionFailure("execution has reached a routine that is not supposed to be reachable")
         }
         self.name = name
         rawConfiguration._rawNameRelease?(rawConfiguration._rawName)
-        self.offset = Self._rawOffset(_in: id.type.rawValue, _at: id.index)
+        self.offset = Self._rawOffset(_in: id.instanceType.rawValue, _at: id.index)
         self.isStrong = rawConfiguration._isStrong
         self.isMutable = rawConfiguration._isMutable
     }
 
     public let name: String
 
-    public let type: TypeIntrospection
+    public let valueType: TypeIntrospection
 
     public let offset: Int
 
